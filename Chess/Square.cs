@@ -3,8 +3,9 @@ namespace ChessLib
 {
     public class Square
     {
-        protected int Row { get; }
-        protected int Column { get; }
+        public int Row { get; }
+        public int Column { get; }
+        private char[] _columnNames = new char[8] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
         public Pieces.Piece SquarePiece { get; set; }
 
         public Square(int row, int column)
@@ -15,7 +16,7 @@ namespace ChessLib
 
         public string GetPosition()
         {
-            return Row + "," + Column;
+            return _columnNames[Column] + Row.ToString();
 	    }
     }
 }

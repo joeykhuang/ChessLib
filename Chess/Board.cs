@@ -29,17 +29,18 @@ namespace ChessLib
             {
                 var color = row < 4; // Is white if on the lower side of the board
 			    for (int col = 0; col < 8; col++) {
-					BoardPositions[Math.Abs(row - 6), col].SquarePiece = new Pieces.Pawn(color);
+                    var pawnSquare = BoardPositions[Math.Abs(row - 6), col];
+					pawnSquare.SquarePiece = new Pieces.Pawn(color, pawnSquare);
 				}
 
-			    BoardPositions[row, 0].SquarePiece = new Pieces.Rook(color);
-			    BoardPositions[row, 1].SquarePiece = new Pieces.Knight(color);
-			    BoardPositions[row, 2].SquarePiece = new Pieces.Bishop(color);
-			    BoardPositions[row, 3].SquarePiece = new Pieces.Queen(color);
-			    BoardPositions[row, 4].SquarePiece = new Pieces.King(color);
-			    BoardPositions[row, 5].SquarePiece = new Pieces.Bishop(color);
-			    BoardPositions[row, 6].SquarePiece = new Pieces.Knight(color);
-			    BoardPositions[row, 7].SquarePiece = new Pieces.Rook(color);
+			    BoardPositions[row, 0].SquarePiece = new Pieces.Rook(color, BoardPositions[row, 0]);
+			    BoardPositions[row, 1].SquarePiece = new Pieces.Knight(color, BoardPositions[row, 1]);
+			    BoardPositions[row, 2].SquarePiece = new Pieces.Bishop(color, BoardPositions[row, 2]);
+			    BoardPositions[row, 3].SquarePiece = new Pieces.Queen(color, BoardPositions[row, 3]);
+			    BoardPositions[row, 4].SquarePiece = new Pieces.King(color, BoardPositions[row, 4]);
+			    BoardPositions[row, 5].SquarePiece = new Pieces.Bishop(color, BoardPositions[row, 5]);
+			    BoardPositions[row, 6].SquarePiece = new Pieces.Knight(color, BoardPositions[row, 6]);
+			    BoardPositions[row, 7].SquarePiece = new Pieces.Rook(color, BoardPositions[row, 0]);
 	        }
         }
 
@@ -57,5 +58,16 @@ namespace ChessLib
 	        }
 	    }
 
+
+        /// <summary>
+        ///     Whether a position is inside the game board
+        /// </summary>
+        /// <param name="position"> A tuple of integers that specify the piece position </param>
+        /// <returns>Whether <para>position</para> is inside the board </returns>
+        static public bool WithinBoard((int, int) position)
+        {
+            return position.Item1 >= 0 && position.Item1 <= 7
+                && position.Item2 >= 0 && position.Item2 <= 7;
+	    }
     }
 }
